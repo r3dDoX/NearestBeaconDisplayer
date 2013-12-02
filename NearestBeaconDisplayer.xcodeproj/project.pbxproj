@@ -22,6 +22,10 @@
 		CD7D3DE41847CA3300B6FDCB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7D3DC31847CA3300B6FDCB /* UIKit.framework */; };
 		CD7D3DEC1847CA3300B6FDCB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD7D3DEA1847CA3300B6FDCB /* InfoPlist.strings */; };
 		CD7D3DEE1847CA3300B6FDCB /* NearestBeaconDisplayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7D3DED1847CA3300B6FDCB /* NearestBeaconDisplayerTests.m */; };
+		CD7D3DF81847D78800B6FDCB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7D3DF71847D78800B6FDCB /* CoreLocation.framework */; };
+		CD7D3DFA1847DFC100B6FDCB /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7D3DF91847DFC100B6FDCB /* CoreBluetooth.framework */; };
+		CD7D3DFD184A225E00B6FDCB /* BeaconHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7D3DFC184A225E00B6FDCB /* BeaconHelper.m */; };
+		CD7D3E00184A3A2E00B6FDCB /* Beacon.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7D3DFF184A3A2E00B6FDCB /* Beacon.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +59,12 @@
 		CD7D3DE91847CA3300B6FDCB /* NearestBeaconDisplayerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NearestBeaconDisplayerTests-Info.plist"; sourceTree = "<group>"; };
 		CD7D3DEB1847CA3300B6FDCB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CD7D3DED1847CA3300B6FDCB /* NearestBeaconDisplayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NearestBeaconDisplayerTests.m; sourceTree = "<group>"; };
+		CD7D3DF71847D78800B6FDCB /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		CD7D3DF91847DFC100B6FDCB /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		CD7D3DFB184A225E00B6FDCB /* BeaconHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconHelper.h; sourceTree = "<group>"; };
+		CD7D3DFC184A225E00B6FDCB /* BeaconHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconHelper.m; sourceTree = "<group>"; };
+		CD7D3DFE184A3A2E00B6FDCB /* Beacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beacon.h; sourceTree = "<group>"; };
+		CD7D3DFF184A3A2E00B6FDCB /* Beacon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Beacon.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +72,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD7D3DFA1847DFC100B6FDCB /* CoreBluetooth.framework in Frameworks */,
+				CD7D3DF81847D78800B6FDCB /* CoreLocation.framework in Frameworks */,
 				CD7D3DC21847CA3300B6FDCB /* CoreGraphics.framework in Frameworks */,
 				CD7D3DC41847CA3300B6FDCB /* UIKit.framework in Frameworks */,
 				CD7D3DC01847CA3300B6FDCB /* Foundation.framework in Frameworks */,
@@ -103,6 +115,8 @@
 		CD7D3DBE1847CA3300B6FDCB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CD7D3DF91847DFC100B6FDCB /* CoreBluetooth.framework */,
+				CD7D3DF71847D78800B6FDCB /* CoreLocation.framework */,
 				CD7D3DBF1847CA3300B6FDCB /* Foundation.framework */,
 				CD7D3DC11847CA3300B6FDCB /* CoreGraphics.framework */,
 				CD7D3DC31847CA3300B6FDCB /* UIKit.framework */,
@@ -122,6 +136,10 @@
 				CD7D3DD81847CA3300B6FDCB /* ViewController.m */,
 				CD7D3DDA1847CA3300B6FDCB /* Images.xcassets */,
 				CD7D3DC61847CA3300B6FDCB /* Supporting Files */,
+				CD7D3DFB184A225E00B6FDCB /* BeaconHelper.h */,
+				CD7D3DFC184A225E00B6FDCB /* BeaconHelper.m */,
+				CD7D3DFE184A3A2E00B6FDCB /* Beacon.h */,
+				CD7D3DFF184A3A2E00B6FDCB /* Beacon.m */,
 			);
 			path = NearestBeaconDisplayer;
 			sourceTree = "<group>";
@@ -254,6 +272,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD7D3DD91847CA3300B6FDCB /* ViewController.m in Sources */,
+				CD7D3DFD184A225E00B6FDCB /* BeaconHelper.m in Sources */,
+				CD7D3E00184A3A2E00B6FDCB /* Beacon.m in Sources */,
 				CD7D3DD01847CA3300B6FDCB /* AppDelegate.m in Sources */,
 				CD7D3DCC1847CA3300B6FDCB /* main.m in Sources */,
 			);
@@ -395,6 +415,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NearestBeaconDisplayer/NearestBeaconDisplayer-Prefix.pch";
 				INFOPLIST_FILE = "NearestBeaconDisplayer/NearestBeaconDisplayer-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -408,6 +429,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NearestBeaconDisplayer/NearestBeaconDisplayer-Prefix.pch";
 				INFOPLIST_FILE = "NearestBeaconDisplayer/NearestBeaconDisplayer-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
