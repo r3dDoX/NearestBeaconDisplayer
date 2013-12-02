@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ViewController.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate>
 
+@property (weak,nonatomic) IBOutlet UILabel* delegateLabel;
 @property (strong, nonatomic) UIWindow *window;
+@property (weak, nonatomic) ViewController *viewController;
 
 @end

@@ -7,12 +7,63 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
+#import "BeaconHelper.h"
 
-@implementation AppDelegate
+@implementation AppDelegate {
+    BeaconHelper *beaconHelper;
+    CLLocationManager* locationManager;
+    CLBeaconRegion* region;
+}
+
+@synthesize viewController;
+
+- (void) createLocationManager {
+    beaconHelper = [BeaconHelper shared];
+
+    locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+
+    region = [[CLBeaconRegion alloc]
+              initWithProximityUUID: beaconHelper.proximityUUID
+              identifier:@"TestRegion"];
+
+    region.notifyEntryStateOnDisplay = NO;
+    region.notifyOnEntry = YES;
+    region.notifyOnExit = YES;
+
+    [locationManager startMonitoringForRegion: region];
+    [locationManager startRangingBeaconsInRegion: region];
+}
+
+- (NSArray*) sortBeacons:(NSArray*)beacons
+{
+    return [beacons sortedArrayUsingComparator:^(id obj1, id obj2) {
+        CLBeacon* beacon1 = (CLBeacon*)obj1;
+        CLBeacon* beacon2 = (CLBeacon*)obj2;
+
+        if (beacon1.accuracy < beacon2.accuracy) {
+            return (NSComparisonResult)NSOrderedAscending;
+        } else if (beacon1.accuracy > beacon2.accuracy) {
+            return (NSComparisonResult)NSOrderedDescending;
+        } else {
+            return (NSComparisonResult)NSOrderedSame;
+        }
+    }];
+}
+
+#pragma mark methods from UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    NSLog(@"Application did finish launching with options");
+
+    if([launchOptions objectForKey:@"UIApplicationLaunchOptionsLocationKey"]) {
+        NSLog(@"Started with Location Key");
+    }
+
+    if (locationManager == nil) [self createLocationManager];
+
     return YES;
 }
 							
@@ -24,8 +75,8 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    [locationManager startMonitoringSignificantLocationChanges];
+    NSLog(@"Application did enter background");
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -35,12 +86,58 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [locationManager stopMonitoringSignificantLocationChanges];
+    NSLog(@"Application did become active");
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark methods from CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)enteredRegion
+{
+    NSLog(@"did enter region %@", enteredRegion);
+}
+
+- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)exitedRegion
+{
+    NSLog(@"did exit region %@", exitedRegion);
+}
+
+- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)regionWithError withError:(NSError *)error
+{
+    NSLog(@"monitoring did fail for region %@, with error %@", regionWithError, [error localizedDescription]);
+}
+
+- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)regionWithState
+{
+    if(state == CLRegionStateInside)
+    {
+        NSLog(@"You're inside the region %@", regionWithState);
+    }
+    else if(state == CLRegionStateOutside)
+    {
+        NSLog(@"You're outside the region %@", regionWithState);
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
+{
+    // CoreLocation will call this delegate method at 1 Hz with updated range information.
+    // Beacons will be categorized and displayed by proximity.
+    if ([beacons count] == 0) {
+        return;
+    }
+
+    NSArray* sortedBeacons = [self sortBeacons:beacons];
+    [viewController updateUiForNearestBeacon: [sortedBeacons objectAtIndex:0]];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    NSLog(@"Received updated location information");
 }
 
 @end
