@@ -13,7 +13,6 @@
 @implementation AppDelegate {
     BeaconHelper *beaconHelper;
     CLLocationManager* locationManager;
-    CLBeaconRegion* region;
 }
 
 @synthesize viewController;
@@ -24,32 +23,14 @@
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
 
-    region = [[CLBeaconRegion alloc]
-              initWithProximityUUID: beaconHelper.proximityUUID
-              identifier:@"TestRegion"];
+    for(CLBeaconRegion *region in beaconHelper.knownRegions) {
+        region.notifyEntryStateOnDisplay = YES;
+        region.notifyOnEntry = YES;
+        region.notifyOnExit = YES;
 
-    region.notifyEntryStateOnDisplay = NO;
-    region.notifyOnEntry = YES;
-    region.notifyOnExit = YES;
-
-    [locationManager startMonitoringForRegion: region];
-    [locationManager startRangingBeaconsInRegion: region];
-}
-
-- (NSArray*) sortBeacons:(NSArray*)beacons
-{
-    return [beacons sortedArrayUsingComparator:^(id obj1, id obj2) {
-        CLBeacon* beacon1 = (CLBeacon*)obj1;
-        CLBeacon* beacon2 = (CLBeacon*)obj2;
-
-        if (beacon1.accuracy < beacon2.accuracy) {
-            return (NSComparisonResult)NSOrderedAscending;
-        } else if (beacon1.accuracy > beacon2.accuracy) {
-            return (NSComparisonResult)NSOrderedDescending;
-        } else {
-            return (NSComparisonResult)NSOrderedSame;
-        }
-    }];
+        [locationManager startMonitoringForRegion: region];
+        [locationManager startRangingBeaconsInRegion: region];
+    }
 }
 
 #pragma mark methods from UIApplicationDelegate
@@ -132,8 +113,7 @@
         return;
     }
 
-    NSArray* sortedBeacons = [self sortBeacons:beacons];
-    [viewController updateUiForNearestBeacon: [sortedBeacons objectAtIndex:0]];
+    [viewController updateUiForNearestBeacon: [beacons objectAtIndex:0] inRegion:region];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {

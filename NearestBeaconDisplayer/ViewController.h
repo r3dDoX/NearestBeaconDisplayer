@@ -14,6 +14,6 @@
 @property (weak,nonatomic) IBOutlet UILabel* beaconLabel;
 @property (weak,nonatomic) IBOutlet UILabel* distanceLabel;
 
-- (void) updateUiForNearestBeacon:(CLBeacon*) beacon;
+- (void) updateUiForNearestBeacon:(CLBeacon*) beacon inRegion:(CLBeaconRegion*) region;
 
 @end

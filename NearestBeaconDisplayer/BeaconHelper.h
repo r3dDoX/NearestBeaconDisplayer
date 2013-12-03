@@ -12,12 +12,12 @@
 @interface BeaconHelper : NSObject {
     NSUUID *proximityUUID;
     CLBeaconMajorValue major;
-    NSMutableSet *knownBeacons;
+    NSMutableSet *knownRegions;
 }
 
 @property (nonatomic, readonly) NSUUID *proximityUUID;
 @property (nonatomic, readonly) CLBeaconMajorValue major;
-@property (nonatomic, readonly) NSMutableSet *knownBeacons;
+@property (nonatomic, readonly) NSMutableSet *knownRegions;
 
 + (id)shared;
 

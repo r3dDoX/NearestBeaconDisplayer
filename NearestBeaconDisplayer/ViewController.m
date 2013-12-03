@@ -38,7 +38,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) updateUiForNearestBeacon:(CLBeacon*) beacon
+- (void) updateUiForNearestBeacon:(CLBeacon*) beacon inRegion:(CLBeaconRegion*) region
 {
     NSString* prefix = nil;
     if (beacon.proximity == CLProximityImmediate) {
@@ -52,13 +52,9 @@
     }
 
     if (prefix != nil) {
-        Beacon *nearestBeacon = [beaconHelper.knownBeacons member:[[Beacon alloc] initWithMajor:beacon.major minor:beacon.minor]];
-
-        if(nearestBeacon) {
-            NSString* text = [NSString stringWithFormat:@"%@ %@", prefix, nearestBeacon.name];
-            self.beaconLabel.text = text;
-            self.distanceLabel.text = [NSString stringWithFormat:@"%.2f m", beacon.accuracy];
-        }
+        NSString* text = [NSString stringWithFormat:@"%@ %@", prefix, region.identifier];
+        self.beaconLabel.text = text;
+        self.distanceLabel.text = [NSString stringWithFormat:@"%.2f m", beacon.accuracy];
     } else {
         [self resetDisplay];
     }
