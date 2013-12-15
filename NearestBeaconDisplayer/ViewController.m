@@ -9,7 +9,6 @@
 #import "ViewController.h"
 #import "AppDelegate.h"
 #import "BeaconHelper.h"
-#import "Beacon.h"
 
 @interface ViewController ()
 
@@ -38,17 +37,25 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) updateUiForNearestBeacon:(CLBeacon*) beacon inRegion:(CLBeaconRegion*) region
+- (void) updateUiForNearestBeacon:(NSMutableDictionary*) rangedBeaconsByRegion
 {
+    CLBeaconRegion *region = [self getNearestBeaconRegion: rangedBeaconsByRegion];
+    CLBeacon *beacon = [rangedBeaconsByRegion objectForKey:region];
+
     NSString* prefix = nil;
-    if (beacon.proximity == CLProximityImmediate) {
-        prefix = @"At ";
-    }
-    else if (beacon.proximity == CLProximityNear) {
-        prefix = @"Near ";
-    }
-    else if (beacon.proximity == CLProximityFar) {
-        prefix = @"Far from ";
+    switch (beacon.proximity) {
+        case CLProximityImmediate:
+            prefix = @"At ";
+            break;
+        case CLProximityNear:
+            prefix = @"Near ";
+            break;
+        case CLProximityFar:
+            prefix = @"Far from ";
+            break;
+        case CLProximityUnknown:
+            prefix = @"Unknown proximity to ";
+            break;
     }
 
     if (prefix != nil) {
@@ -58,6 +65,21 @@
     } else {
         [self resetDisplay];
     }
+}
+
+- (CLBeaconRegion*) getNearestBeaconRegion: (NSMutableDictionary*) rangedBeaconsByRegion {
+    double accuracy = INFINITY;
+    CLBeaconRegion *nearestRegion = nil;
+
+    for(CLBeaconRegion *region in rangedBeaconsByRegion) {
+        CLBeacon *beacon = [rangedBeaconsByRegion objectForKey:region];
+        if(beacon.accuracy < accuracy) {
+            accuracy = beacon.accuracy;
+            nearestRegion = region;
+        }
+    }
+
+    return nearestRegion;
 }
 
 - (void) resetDisplay

@@ -29,13 +29,10 @@
     if (self = [super init]) {
         proximityUUID = [[NSUUID alloc] initWithUUIDString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"]; // Estimote
 
-        knownRegions = [[NSMutableSet alloc] init];
-        [knownRegions addObject:[[CLBeaconRegion alloc]
-                                 initWithProximityUUID: proximityUUID major:34751 minor:41649 identifier:@"Mint"]];
-        [knownRegions addObject:[[CLBeaconRegion alloc]
-                                 initWithProximityUUID: proximityUUID major:51881 minor:16836 identifier:@"Icy Marshmallow"]];
-        [knownRegions addObject:[[CLBeaconRegion alloc]
-                                 initWithProximityUUID: proximityUUID major:51681 minor:23421 identifier:@"Blueberry Pie"]];
+        knownRegions = [[NSArray alloc] initWithObjects:
+                        [[CLBeaconRegion alloc] initWithProximityUUID: proximityUUID major:34751 minor:41649 identifier:@"Mint"],
+                        [[CLBeaconRegion alloc] initWithProximityUUID: proximityUUID major:51881 minor:16836 identifier:@"Icy Marshmallow"],
+                        [[CLBeaconRegion alloc] initWithProximityUUID: proximityUUID major:51681 minor:23421 identifier:@"Blueberry Pie"], nil];
     }
     return self;
 }

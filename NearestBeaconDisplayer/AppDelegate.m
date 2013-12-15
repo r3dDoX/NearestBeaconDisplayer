@@ -12,13 +12,15 @@
 
 @implementation AppDelegate {
     BeaconHelper *beaconHelper;
-    CLLocationManager* locationManager;
+    CLLocationManager *locationManager;
+    NSMutableDictionary *rangedBeaconsByRegion;
 }
 
 @synthesize viewController;
 
 - (void) createLocationManager {
     beaconHelper = [BeaconHelper shared];
+    rangedBeaconsByRegion = [[NSMutableDictionary alloc] init];
 
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
@@ -37,12 +39,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSLog(@"Application did finish launching with options");
-
-    if([launchOptions objectForKey:@"UIApplicationLaunchOptionsLocationKey"]) {
-        NSLog(@"Started with Location Key");
-    }
-
     if (locationManager == nil) [self createLocationManager];
 
     return YES;
@@ -57,7 +53,6 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     [locationManager startMonitoringSignificantLocationChanges];
-    NSLog(@"Application did enter background");
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -68,7 +63,6 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [locationManager stopMonitoringSignificantLocationChanges];
-    NSLog(@"Application did become active");
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -80,12 +74,18 @@
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)enteredRegion
 {
-    NSLog(@"did enter region %@", enteredRegion);
+    NSMutableString *message = [[NSMutableString alloc] initWithString:@"You're near "];
+    [message appendString:enteredRegion.identifier];
+
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = message;
+    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+    
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)exitedRegion
 {
-    NSLog(@"did exit region %@", exitedRegion);
+    [rangedBeaconsByRegion removeObjectForKey:exitedRegion];
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)regionWithError withError:(NSError *)error
@@ -113,8 +113,12 @@
         return;
     }
 
-    [viewController updateUiForNearestBeacon: [beacons objectAtIndex:0] inRegion:region];
+    [rangedBeaconsByRegion setObject:[beacons objectAtIndex:0] forKey:region];
+
+    [viewController updateUiForNearestBeacon:rangedBeaconsByRegion];
 }
+
+
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     NSLog(@"Received updated location information");
