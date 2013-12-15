@@ -25,7 +25,6 @@
 		CD7D3DF81847D78800B6FDCB /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7D3DF71847D78800B6FDCB /* CoreLocation.framework */; };
 		CD7D3DFA1847DFC100B6FDCB /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD7D3DF91847DFC100B6FDCB /* CoreBluetooth.framework */; };
 		CD7D3DFD184A225E00B6FDCB /* BeaconHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7D3DFC184A225E00B6FDCB /* BeaconHelper.m */; };
-		CD7D3E00184A3A2E00B6FDCB /* Beacon.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7D3DFF184A3A2E00B6FDCB /* Beacon.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,8 +62,6 @@
 		CD7D3DF91847DFC100B6FDCB /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		CD7D3DFB184A225E00B6FDCB /* BeaconHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeaconHelper.h; sourceTree = "<group>"; };
 		CD7D3DFC184A225E00B6FDCB /* BeaconHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeaconHelper.m; sourceTree = "<group>"; };
-		CD7D3DFE184A3A2E00B6FDCB /* Beacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beacon.h; sourceTree = "<group>"; };
-		CD7D3DFF184A3A2E00B6FDCB /* Beacon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Beacon.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,8 +135,6 @@
 				CD7D3DC61847CA3300B6FDCB /* Supporting Files */,
 				CD7D3DFB184A225E00B6FDCB /* BeaconHelper.h */,
 				CD7D3DFC184A225E00B6FDCB /* BeaconHelper.m */,
-				CD7D3DFE184A3A2E00B6FDCB /* Beacon.h */,
-				CD7D3DFF184A3A2E00B6FDCB /* Beacon.m */,
 			);
 			path = NearestBeaconDisplayer;
 			sourceTree = "<group>";
@@ -273,7 +268,6 @@
 			files = (
 				CD7D3DD91847CA3300B6FDCB /* ViewController.m in Sources */,
 				CD7D3DFD184A225E00B6FDCB /* BeaconHelper.m in Sources */,
-				CD7D3E00184A3A2E00B6FDCB /* Beacon.m in Sources */,
 				CD7D3DD01847CA3300B6FDCB /* AppDelegate.m in Sources */,
 				CD7D3DCC1847CA3300B6FDCB /* main.m in Sources */,
 			);
@@ -496,6 +490,7 @@
 				CD7D3DF31847CA3300B6FDCB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CD7D3DF41847CA3300B6FDCB /* Build configuration list for PBXNativeTarget "NearestBeaconDisplayerTests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +499,7 @@
 				CD7D3DF61847CA3300B6FDCB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
