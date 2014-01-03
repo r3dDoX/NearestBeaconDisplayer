@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 WProduction. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+@import CoreLocation;
 #import "ViewController.h"
-#import <CoreLocation/CoreLocation.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate>
 

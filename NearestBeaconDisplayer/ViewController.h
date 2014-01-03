@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 WProduction. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <CoreLocation/CoreLocation.h>
+@import UIKit;
+@import CoreLocation;
 
 @interface ViewController : UIViewController <CLLocationManagerDelegate>
 
-@property (weak,nonatomic) IBOutlet UILabel* beaconLabel;
-@property (weak,nonatomic) IBOutlet UILabel* distanceLabel;
+@property (weak, nonatomic) IBOutlet UILabel* beaconLabel;
+@property (weak, nonatomic) IBOutlet UILabel* distanceLabel;
 
 - (void) updateUiForNearestBeacon:(NSMutableDictionary*) rangedBeaconsByRegion;
 
