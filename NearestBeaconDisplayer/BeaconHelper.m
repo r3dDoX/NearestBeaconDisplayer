@@ -8,6 +8,12 @@
 
 #import "BeaconHelper.h"
 
+@interface BeaconHelper()
+@property (nonatomic, readwrite) NSUUID *proximityUUID;
+@property (nonatomic, readwrite) CLBeaconMajorValue major;
+@property (nonatomic, readwrite) NSArray *knownRegions;
+@end
+
 @implementation BeaconHelper
 
 + (id) shared {
@@ -23,9 +29,9 @@
 
 - (id) init {
     if (self = [super init]) {
-        _proximityUUID = [[NSUUID alloc] initWithUUIDString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"]; // Estimote
+        self.proximityUUID = [[NSUUID alloc] initWithUUIDString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"]; // Estimote
 
-        _knownRegions = [[NSArray alloc] initWithObjects:
+        self.knownRegions = [[NSArray alloc] initWithObjects:
                         [[CLBeaconRegion alloc] initWithProximityUUID: self.proximityUUID major:34751 minor:41649 identifier:@"Mint"],
                         [[CLBeaconRegion alloc] initWithProximityUUID: self.proximityUUID major:51881 minor:16836 identifier:@"Icy Marshmallow"],
                         [[CLBeaconRegion alloc] initWithProximityUUID: self.proximityUUID major:51681 minor:23421 identifier:@"Blueberry Pie"], nil];
