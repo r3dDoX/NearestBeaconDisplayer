@@ -10,10 +10,6 @@
 
 @implementation BeaconHelper
 
-@synthesize proximityUUID;
-@synthesize major;
-@synthesize knownRegions;
-
 + (id) shared {
     static BeaconHelper *beaconHelper = nil;
     static dispatch_once_t onceToken;
@@ -27,12 +23,12 @@
 
 - (id) init {
     if (self = [super init]) {
-        proximityUUID = [[NSUUID alloc] initWithUUIDString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"]; // Estimote
+        _proximityUUID = [[NSUUID alloc] initWithUUIDString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"]; // Estimote
 
-        knownRegions = [[NSArray alloc] initWithObjects:
-                        [[CLBeaconRegion alloc] initWithProximityUUID: proximityUUID major:34751 minor:41649 identifier:@"Mint"],
-                        [[CLBeaconRegion alloc] initWithProximityUUID: proximityUUID major:51881 minor:16836 identifier:@"Icy Marshmallow"],
-                        [[CLBeaconRegion alloc] initWithProximityUUID: proximityUUID major:51681 minor:23421 identifier:@"Blueberry Pie"], nil];
+        _knownRegions = [[NSArray alloc] initWithObjects:
+                        [[CLBeaconRegion alloc] initWithProximityUUID: self.proximityUUID major:34751 minor:41649 identifier:@"Mint"],
+                        [[CLBeaconRegion alloc] initWithProximityUUID: self.proximityUUID major:51881 minor:16836 identifier:@"Icy Marshmallow"],
+                        [[CLBeaconRegion alloc] initWithProximityUUID: self.proximityUUID major:51681 minor:23421 identifier:@"Blueberry Pie"], nil];
     }
     return self;
 }

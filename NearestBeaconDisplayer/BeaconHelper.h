@@ -9,11 +9,7 @@
 @import Foundation;
 @import CoreLocation;
 
-@interface BeaconHelper : NSObject {
-    NSUUID *proximityUUID;
-    CLBeaconMajorValue major;
-    NSArray *knownRegions;
-}
+@interface BeaconHelper : NSObject
 
 @property (nonatomic, readonly) NSUUID *proximityUUID;
 @property (nonatomic, readonly) CLBeaconMajorValue major;

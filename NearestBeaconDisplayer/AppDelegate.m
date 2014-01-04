@@ -16,7 +16,6 @@
     NSMutableDictionary *rangedBeaconsByRegion;
 }
 
-@synthesize viewController;
 
 - (void) createLocationManager {
     beaconHelper = [BeaconHelper shared];
@@ -115,7 +114,7 @@
 
     [rangedBeaconsByRegion setObject:[beacons objectAtIndex:0] forKey:region];
 
-    [viewController updateUiForNearestBeacon:rangedBeaconsByRegion];
+    [self.viewController updateUiForNearestBeacon:rangedBeaconsByRegion];
 }
 
 
